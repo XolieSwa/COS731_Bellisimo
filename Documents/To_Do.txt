@@ -1,0 +1,8 @@
+--Setup GIT **
+--Database setup
+	--How to intergrate databases to java
+--Backend setup
+--Frontend setup
+--Testing setup
+--Documentation
+--Get examples
