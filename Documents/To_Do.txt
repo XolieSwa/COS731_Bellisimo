@@ -6,3 +6,9 @@
 --Testing setup
 --Documentation
 --Get examples
+--Tools
+	--Postgres**
+	--Maven**
+	--NodeJS**
+	--Angular2
+	--Springboot
