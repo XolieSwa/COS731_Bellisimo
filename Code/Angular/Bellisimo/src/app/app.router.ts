@@ -1,16 +1,22 @@
-import {ModuleWithProviders} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
-
 import { AppComponent } from './app.component';
 import { ClothingComponent } from './clothing/clothing.component';
 import { FoodComponent } from './food/food.component';
 import { ContactComponent } from './contact/contact.component';
+import { HomeComponent } from './home/home.component';
 
-export const router : Routes = [
-{path: '' , redirectTo: 'clothing', pathMatch: 'full'},
+export const AppRoutes: any = [
+{path: 'home', component :HomeComponent  },
 {path: 'clothing', component :ClothingComponent  },
 {path: 'food', component : FoodComponent  },
 {path: 'contact', component : ContactComponent}
+
 ];
 
-export const routes : ModuleWithProviders = RouterModule.forRoot(router);
+export const AppComponents: any = [
+    AppComponent,
+    ClothingComponent,
+    FoodComponent,
+    ContactComponent,
+    HomeComponent
+    
+];
