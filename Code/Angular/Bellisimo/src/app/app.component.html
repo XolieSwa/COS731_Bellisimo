@@ -21,13 +21,13 @@
                         <a href="../index.html">Home</a>
                     </li>
                    <li>
-                       <a href="../index.html">Clothing</a>
+                       <a routerLink = "clothing">Clothing</a>
                     </li>
                     <li>
-                        <a href="../blog.html">Food</a>
+                       <a routerLink = "food">Food</a>
                     </li>
                     <li>
-                        <a href="../contact.html">Contact</a>
+                       <a routerLink = "contact">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -116,6 +116,10 @@
                 </div>
             </div>
         </div>
+        
+         <div class="container">
+         <router-outlet> </router-outlet>
+     </div>
 
     </div>
     <!-- /.container -->
@@ -129,3 +133,5 @@
             </div>
         </div>
     </footer>
+    
+    
