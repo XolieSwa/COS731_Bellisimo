@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('bellisimo-project App', () => {
+describe('bellisimo App', () => {
   let page: AppPage;
 
   beforeEach(() => {
