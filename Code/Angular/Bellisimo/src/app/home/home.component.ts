@@ -15,6 +15,7 @@ export class HomeComponent  {
         this.router.navigate(["clothing"]);
         this.router.navigate(["food"]);
         this.router.navigate(["contact"]);
+        this.router.navigate(["home"]);
     }
 
 }

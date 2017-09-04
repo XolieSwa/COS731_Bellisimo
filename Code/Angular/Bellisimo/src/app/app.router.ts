@@ -5,11 +5,11 @@ import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
 
 export const AppRoutes: any = [
+{path: '' , redirectTo: 'home', pathMatch: 'full'},
 {path: 'home', component :HomeComponent  },
 {path: 'clothing', component :ClothingComponent  },
 {path: 'food', component : FoodComponent  },
 {path: 'contact', component : ContactComponent}
-
 ];
 
 export const AppComponents: any = [
@@ -18,5 +18,4 @@ export const AppComponents: any = [
     FoodComponent,
     ContactComponent,
     HomeComponent
-    
 ];
