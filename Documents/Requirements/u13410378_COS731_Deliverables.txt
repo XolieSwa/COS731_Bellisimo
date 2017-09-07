@@ -1,0 +1,4 @@
+Name:Xoliswa Ntshingila
+Student Number: 13410378
+Code Link:https://github.com/XolieSwa/COS731_Bellisimo/tree/master/Code/Angular/BellisimoProject
+Documentation Link:https://github.com/XolieSwa/COS731_Bellisimo/tree/master/Documents/Requirements
