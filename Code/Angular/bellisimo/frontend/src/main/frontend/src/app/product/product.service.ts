@@ -11,6 +11,7 @@ import { Product } from './product';
 export class ProductService {
   url = "http://localhost:8080/data/allproducts";
   urlAdd ="http://localhost:8080/data/product/add";
+  urlUpdate = "http://localhost:8080/data/product/";
   constructor(private http:Http) { }
   getProductsWithObservable(): Observable<Product[]> {
     return this.http.get(this.url)
@@ -27,11 +28,16 @@ export class ProductService {
       .catch(this.handleErrorObservable);
   }
 
-  getProductsWithPromise(): Promise<Product[]> {
-    return this.http.get(this.url).toPromise()
-      .then(this.extractData)
-      .catch(this.handleErrorPromise);
+  //update product
+  updateProductWithObservable(product:Product): Observable<Product> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let body = JSON.stringify(product);
+    return this.http.put(this.urlUpdate+5, product, options)
+      .map(this.extractData)
+      .catch(this.handleErrorObservable);
   }
+
   private extractData(res: Response) {
     let body = res.json();
     return body;

@@ -20,7 +20,6 @@ export class WomenComponent   implements OnInit{
   //adding
   productCategory: String;
   product = new Product();
-
   //constructor
   constructor(private router: Router, private productService: ProductService) {}
 
@@ -54,6 +53,17 @@ navigate() {
           this.fetchProducts();
           this.reset();
           this.productCategory = product.category;
+        },
+        error => this.errorMessage = <any>error);
+  }
+
+  updateProduct(): void {
+    this.productService.updateProductWithObservable(this.product)
+      .subscribe( product => {
+          this.fetchProducts();
+          this.reset();
+          this.productCategory = product.category;
+          this.product.id = product.id;
         },
         error => this.errorMessage = <any>error);
   }
