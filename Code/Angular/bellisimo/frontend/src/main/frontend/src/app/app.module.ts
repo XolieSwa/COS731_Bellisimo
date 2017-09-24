@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { WomenComponent } from './women/women.component';
 import {HttpModule} from "@angular/http";
 import {ProductService} from "./product/product.service";
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {ProductService} from "./product/product.service";
     BrowserModule,
     RouterModule,
     RouterModule.forRoot(AppRoutes),
-    HttpModule
+    HttpModule,
+    FormsModule
 
   ],
   providers: [

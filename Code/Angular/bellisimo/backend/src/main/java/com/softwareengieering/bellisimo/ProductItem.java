@@ -8,7 +8,7 @@ public class ProductItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private Integer id;
+    private long id;
     private String category;
     private String categoryType;
     private String categorySubType;
@@ -17,11 +17,11 @@ public class ProductItem {
     private double price;
     private String imagePath;
 
-    public Integer getId () {
+    public long getId () {
         return id;
     }
 
-    public void setId ( Integer id ) {
+    public void setId ( long id ) {
         this.id = id;
     }
 
@@ -80,8 +80,5 @@ public class ProductItem {
     public void setImagePath ( String imagePath ) {
         this.imagePath = imagePath;
     }
-
-
-
 
 }

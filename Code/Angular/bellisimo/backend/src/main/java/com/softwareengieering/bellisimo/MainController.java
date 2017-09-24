@@ -1,8 +1,14 @@
 package com.softwareengieering.bellisimo;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Controller    // This means that this class is a Controller
 @CrossOrigin
@@ -34,33 +40,76 @@ public class MainController {
 		return userRepository.findAll();
 	}
 
-	//ProductItem requests
-	@GetMapping(path="/addproduct") // Map ONLY GET Requests
-	public @ResponseBody String addNewProduct (@RequestParam String category
-			, @RequestParam String categoryType
-			, @RequestParam String categorySubtype
-			, @RequestParam String description
-			, @RequestParam String size
-			, @RequestParam double price
-			, @RequestParam String imagePath
-	) {
-		// @ResponseBody means the returned String is the response, not a view name
-		// @RequestParam means it is a parameter from the GET or POST request
+    // ************************ PRODUCT METHODS ****************************************
 
-		ProductItem n = new ProductItem ();
-		n.setCategory(category);
-		n.setCategoryType(categoryType);
-		n.setCategorySubType(categorySubtype);
-		n.setSize(size);
-		n.setPrice(price);
-		n.setImagePath(imagePath);
-		productRepository.save(n);
-		return "Product saved";
-	}
 
+    // -------------------Retrieve All Products------------------------------------------
 	@GetMapping(path="/allproducts")
 	public @ResponseBody Iterable<ProductItem> getAllProducts() {
 		// This returns a JSON or XML with the users
 		return productRepository.findAll();
 	}
+
+    // -------------------Retrieve Single Product------------------------------------------
+
+    @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
+    public @ResponseBody ProductItem getProduct( @PathVariable("id") long id ) {
+        ProductItem product = productRepository.findOne(id);
+        if (product == null) {
+             return null;
+        }
+        return product;
+    }
+
+    // -------------------Create a Product-------------------------------------------
+    @RequestMapping(value = "/product/add", method = RequestMethod.POST)
+    public ResponseEntity <?> createProduct ( @RequestBody ProductItem product , UriComponentsBuilder ucBuilder ) {
+
+        /*
+        if (productService.isProductExist(product)) {
+            logger.error("Unable to create. A Product with name {} already exist", product.getName());
+            return new ResponseEntity(new CustomErrorType("Unable to create. A Product with name " +
+                    product.getName() + " already exist."),HttpStatus.CONFLICT);
+        }*/
+        productRepository.save (product);
+
+        HttpHeaders headers = new HttpHeaders ();
+        headers.setLocation ( ucBuilder.path ( "/data/product/{id}" ).buildAndExpand ( product.getId () ).toUri () );
+        return new ResponseEntity <String> ( headers , HttpStatus.CREATED );
+    }
+
+    // ------------------- Update a Product ------------------------------------------------
+
+    @RequestMapping(value = "/product/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateProduct(@PathVariable("id") long id, @RequestBody ProductItem product) {
+        ProductItem currentProduct = productRepository.findOne(id);
+        if (currentProduct == null) {
+
+            return new ResponseEntity("Product to update not found",
+                    HttpStatus.NOT_FOUND);
+        }
+        currentProduct.setCategory (product.getCategory ());
+        currentProduct.setCategoryType(product.getCategoryType());
+        currentProduct.setCategorySubType(product.getCategorySubType());
+        currentProduct.setDescription (product.getDescription ());
+        currentProduct.setSize (product.getSize ());
+        currentProduct.setPrice (product.getPrice());
+        currentProduct.setImagePath ( product.getImagePath ());
+
+        productRepository.save (currentProduct);
+        return new ResponseEntity<ProductItem>(currentProduct, HttpStatus.OK);
+    }
+
+    // ------------------- Delete a Product-----------------------------------------
+    @RequestMapping(value = "/product/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteProduct(@PathVariable("id") long id) {
+    /* logger.info("Fetching & Deleting Product with id {}", id);*/
+        ProductItem product = productRepository.findOne(id);
+        if (product == null) {
+            return new ResponseEntity("Product to delete not found",
+                    HttpStatus.NOT_FOUND);
+        }
+        productRepository.delete(id);
+        return new ResponseEntity<ProductItem>(HttpStatus.NO_CONTENT);
+    }
 }
