@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { StartersComponent } from './starters/starters.component';
 import { LoginComponent } from './login/login.component';
 import { WomenComponent } from './women/women.component';
+import {HttpModule} from "@angular/http";
+import {ProductService} from "./product/product.service";
 
 @NgModule({
   declarations: [
@@ -26,10 +28,13 @@ import { WomenComponent } from './women/women.component';
   imports: [
     BrowserModule,
     RouterModule,
-    RouterModule.forRoot(AppRoutes)
-   
+    RouterModule.forRoot(AppRoutes),
+    HttpModule
+
   ],
-  providers: [],
+  providers: [
+              ProductService
+              ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
