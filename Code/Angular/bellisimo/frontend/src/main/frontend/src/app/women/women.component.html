@@ -44,6 +44,7 @@
       <img src={{product.imagePath}} alt="" width="300" height="200">
     </a>
     <div class="desc">{{product.categorySubType}}</div>
+    <div class="desc">{{product.description}}</div>
     <div class="desc">{{product.price}}</div>
     <div>
       <button (click)="updateProduct(product)">Update</button>
@@ -51,6 +52,9 @@
   </div>
 
 </ng-container>
+
+
+<!--
 <ng-container>
 <div>
   <div>
@@ -68,3 +72,4 @@
 <div *ngIf="productCategory" [ngClass] = "'success'"> {{productCategory}} Added. </div>
 <div *ngIf="errorMessage" [ngClass] = "'error'"> {{errorMessage}} </div>
 </ng-container>
+-->

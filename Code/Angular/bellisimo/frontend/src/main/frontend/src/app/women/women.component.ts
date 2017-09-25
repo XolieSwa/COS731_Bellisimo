@@ -19,7 +19,17 @@ export class WomenComponent   implements OnInit{
 
   //adding
   productCategory: String;
+  categoryType: string;
+  categorySubType: string;
+  description: string;
+  size: string;
+  price: number;
+  imagePath: string;
+
+  //productObject
   product = new Product();
+
+
   //constructor
   constructor(private router: Router, private productService: ProductService) {}
 
@@ -53,6 +63,12 @@ navigate() {
           this.fetchProducts();
           this.reset();
           this.productCategory = product.category;
+          this.categoryType = product.categoryType;
+          this.categorySubType = product.categorySubType;
+          this.description = product.description;
+          this.size = product.size;
+          this.price = product.price;
+          this.imagePath= product.imagePath;
         },
         error => this.errorMessage = <any>error);
   }
