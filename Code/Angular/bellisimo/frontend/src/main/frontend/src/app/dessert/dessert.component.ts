@@ -8,11 +8,11 @@ import {ProductService} from "../product/product.service";
 import {Product} from "../product/product";
 
 @Component({
-  selector: 'app-women',
-  templateUrl: './women.component.html',
-  styleUrls: ['./women.component.css']
+  selector: 'app-dessert',
+  templateUrl: './dessert.component.html',
+  styleUrls: ['./dessert.component.css']
 })
-export class WomenComponent   implements OnInit{
+export class DessertComponent   implements OnInit{
 
   //Component properties
   allProducts: Product[];
@@ -139,7 +139,7 @@ export class WomenComponent   implements OnInit{
     this.productIdToUpdate = null;
     this.productForm.reset();
     this.processValidation = false;
-    }
+  }
 
 }
 

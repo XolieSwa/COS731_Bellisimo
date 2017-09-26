@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response,Headers, URLSearchParams, RequestOptions  } from '@angular/http';
 import { Observable } from 'rxjs';
-import { Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -9,36 +8,57 @@ import { Product } from './product';
 
 @Injectable()
 export class ProductService {
+
+  //URLS
+
+
   url = "http://localhost:8080/data/allproducts";
   urlAdd ="http://localhost:8080/data/product/add";
-  urlUpdate = "http://localhost:8080/data/product/";
+  urlSingle = "http://localhost:8080/data/product/";
 
+  //constructor
   constructor(private http:Http) { }
-  getProductsWithObservable(): Observable<Product[]> {
+
+  //Fetch all products
+  getAllProducts(): Observable<Product[]> {
     return this.http.get(this.url)
       .map(this.extractData)
       .catch(this.handleErrorObservable);
+
   }
-  //adding product
-  addProductWithObservable(product:Product): Observable<Product> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    let body = JSON.stringify(product);
+  //Create product
+  createProduct(product: Product):Observable<number> {
+    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: cpHeaders });
     return this.http.post(this.urlAdd, product, options)
+      .map(success => success.status)
+      .catch(this.handleErrorObservable);
+  }
+  //Fetch product by id
+  getProductById(productId: string): Observable<Product> {
+    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: cpHeaders });
+    console.log(this.urlSingle+ productId);
+    return this.http.get(this.urlSingle + productId)
       .map(this.extractData)
       .catch(this.handleErrorObservable);
   }
-
-  //update product
-  updateProductWithObservable(product:Product): Observable<Product> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    let body = JSON.stringify(product);
-    return this.http.put(this.urlUpdate+product.id, product, options)
-      .map(this.extractData)
+  //Update product
+  updateProduct(product: Product):Observable<number> {
+    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: cpHeaders });
+    return this.http.put(this.urlSingle+ product.id, product, options)
+      .map(success => success.status)
       .catch(this.handleErrorObservable);
   }
-
+  //Delete product
+  deleteProductById(productId: string): Observable<number> {
+    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: cpHeaders });
+    return this.http.delete(this.urlSingle+ productId)
+      .map(success => success.status)
+      .catch(this.handleErrorObservable);
+  }
   private extractData(res: Response) {
     let body = res.json();
     return body;

@@ -16,6 +16,9 @@ navigate() {
     this.router.navigate(["home"]);
     this.router.navigate(["login"]);
     this.router.navigate(["women"]);
+    this.router.navigate(["starters"]);
+    this.router.navigate(["dessert"]);
+
 }
 
 }
